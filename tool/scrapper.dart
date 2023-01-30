@@ -29,16 +29,15 @@ Future<void> main() async {
         return true;
       }());
 
-      final Map<String, String> lafazs = await Api.getLafazs(
+      final List<Map<String, String>> lafazs = await Api.getLafazs(
         i + 1,
         info['id_slug'],
         j + 1,
       );
 
-      final Iterable<String> keys = lafazs.keys;
-      for (int k = 0; k < keys.length; k++) {
-        final String key = keys.elementAt(k);
-        contents.write('($surah,$ayah,${k+1})\t$key\t${lafazs[key]}\n');
+      for (int k = 0; k < lafazs.length; k++) {
+        final Map<String, String> key = lafazs.elementAt(k);
+        contents.write('($surah,$ayah,${k+1})\t${key['transliteration']}\t${key['translation']}\n');
       }
     }
   }

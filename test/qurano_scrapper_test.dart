@@ -12,7 +12,7 @@ void main() {
       expect(infos.length, 114);
     });
     test('Check total surah information', () async {
-      final Map<String, String> lafazs = await Api.getLafazs(1, 'al-fatihah', 1);
+      final List<Map<String, String>> lafazs = await Api.getLafazs(1, 'al-fatihah', 1);
       expect(lafazs.length, 4);
     });
   });

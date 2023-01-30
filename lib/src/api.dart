@@ -34,7 +34,7 @@ class Api {
   ///
   /// Argument [ayah] is the starting ayah index which will be retrieved.
   /// The value start from 1.
-  static Future<Map<String, String>> getLafazs(
+  static Future<List<Map<String, String>>> getLafazs(
     int surah,
     String surahSlug,
     int ayah,
@@ -52,14 +52,17 @@ class Api {
 
     final Document document = parse(content);
     final List<Element> elements = document
-        .getElementsByClassName('quran-container')
-        .first
-        .children;
+      .getElementsByClassName('quran-container')
+      .first
+      .children;
 
-    final Map<String, String> result = <String, String>{};
+    final List<Map<String, String>> result = [];
 
     for (final Element element in elements) {
-      result[element.children[1].text.trim()] = element.children[2].text.trim();
+      result.add({
+        'transliteration': element.children[1].text.trim(),
+        'translation': element.children[2].text.trim(),
+      });
     }
 
     return result;
